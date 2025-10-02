@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>InventoryHub Client</title>
+</head>
+<body>
+    <h1>InventoryHub</h1>
+    <button onclick="loadItems()">Load Items</button>
+    <ul id="items"></ul>
+
+    <script>async function loadItems() {
+      const res = await fetch("https://localhost:5001/api/inventory");
+      const json = await res.json();
+      const list = document.getElementById("items");
+      list.innerHTML = "";
+      json.data.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = `${item.name} - Qty: ${item.quantity} - $${item.price}`;
+        list.appendChild(li);
+      });
+    }</script>
+</body>
+</html>
